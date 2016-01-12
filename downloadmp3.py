@@ -1,6 +1,7 @@
+from __future__ import unicode_literals
+import youtube_dl
 import csv
 from parse_youtube import getURI
-
 
 YOUTUBE_URL = "https://youtube.com"
 
