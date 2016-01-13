@@ -43,7 +43,7 @@ def downloadMusic(videoURLs, downloadPath="~/Downloads/YoutubeDownload/"):
 		'postprocessors': [{
 			'key': 'FFmpegExtractAudio',
 			'preferredcodec': 'mp3',
-			'preferredquality': '192',
+			'preferredquality': '256',
 		}],
 	}
 	with youtube_dl.YoutubeDL(ydl_opts) as ydl:

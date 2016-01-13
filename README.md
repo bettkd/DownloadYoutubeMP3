@@ -39,6 +39,6 @@ Default:
 |Matthew West    | "Hello, My Name Is"               |
 
 ## STORY
-I love listening to contemporary christian music. So I went online to find the top 100 music to download, but all I found was a list. An amazing list of all the songs I wanted on my iPod. Now the challenge what do I do so that I can download not just all the songs in the list, but the best/verified versions of the songs. Instinctively, I wrote these scripts to automate the proccess. Now all I need is the list of songs I want, and I got it in MP3 format! Yaay!
+I love listening to contemporary christian music. So I went online to find the top 100 music to download, but all I found was a list. An amazing list of all the songs I wanted on my iPod. Now the challenge what do I do so that I can download not just all the songs in the list, but the best/verified versions of the songs. Popular web apps such as http://www.youtube-mp3.org/ need approximately 3-4 minutes to per video. That is the time I have tp download 100 songs. I know, right? Instinctively, I wrote these scripts to automate the proccess. Now all I need is the list of songs I want, and I got it in MP3 format! Yaay!
 
 I hope this hack can help you too..
