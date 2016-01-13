@@ -51,8 +51,9 @@ def main(argv):
 		print 'Error: Invalid arguements....\n'\
 					'Usage: downloadmp3.py -i <playlistFile> -o <outputDirectory>\n'\
 					'Other options:\n'\
-					'\t -t <title> -- downloads a specific title\n'\
-					'\t -a <artist> -- downloads a specific artist (single title)\n'\
+					'\t -t <title> --> downloads a specific title\n'\
+					'\t -a <artist> --> downloads a specific artist (single title)\n'\
+					'\t -h --> help.\n'\
 					'Default: '\
 					"downloadmp3.py -a Jason Mraz -t I'm yours -o ~/Downloads/YoutubeDownload/"
 		sys.exit(2)
@@ -61,7 +62,8 @@ def main(argv):
 			print 'Usage: downloadmp3.py -i <playlistFile> -o <outputDirectory>\n'\
 					'Other options:\n'\
 					'\t -t <title> --> downloads a specific title\n'\
-					'\t -a <artist> -- downloads a specific artist (single title)\n'\
+					'\t -a <artist> --> downloads a specific artist (single title)\n'\
+					'\t -h --> help.\n'\
 					'Default: '\
 					'downloadmp3.py -a "Jason Mraz" -t "I\'m yours" -o ~/Downloads/YoutubeDownload/'
 			sys.exit()
