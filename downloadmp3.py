@@ -3,23 +3,32 @@ import youtube_dl
 import csv
 from parse_youtube import getURI
 import sys, os, getopt
+import threading
+import Queue
 
 YOUTUBE_URL = "https://youtube.com"
+
+q = Queue.Queue()
 
 def getVideoURLs(fname):
 	videoURLs = []
 	playlist = csv.reader(open(fname, 'rU'), dialect=csv.excel_tab)
 	for row in playlist:
 		artist, title = row
-		videoURLs.append(getVideoURL(artist, title))
+		t = threading.Thread(target=getVideoURL, args=(artist, title))
+		t.start()
+		t.join()
+		videoURL = q.get()
+		videoURLs.append(videoURL)
 	return videoURLs
 
 def getVideoURL(artist="Jason Mraz", title="I'm yours"):
 	query = "/results?search_query="+artist.strip().replace(" ", "+")+"+-+"+title.strip().replace(" ", "+")
-	print ("\nNow loading %s by %s..."%(title, artist))
+	print ("\nRetrieving link for %s by %s..."%(title, artist))
 	URI = getURI(YOUTUBE_URL + query)
 	videoURL = YOUTUBE_URL + URI
-	return videoURL
+	q.put(videoURL)
+	#return videoURL
 
 def downloadMusic(videoURLs, downloadPath="~/Downloads/YoutubeDownload/"):
 	if '~' in downloadPath:
@@ -80,15 +89,17 @@ def main(argv):
 		if playlistFile:
 			videoURLs = getVideoURLs(fname=playlistFile)
 			if outputDirectory:
-				downloadMusic(videoURLs, downloadPath=outputDirectory)
+				for videoURL in videoURLs:
+					t = threading.Thread(target=downloadMusic, args=([videoURL], outputDirectory))
+					t.start()
 			else:
 				downloadMusic(videoURLs)
 		elif title or artist:
 			videoURL = getVideoURL(title=title, artist=artist)
 			if outputDirectory:
-				downloadMusic([videoURL,], downloadPath=outputDirectory)
+				downloadMusic([videoURL], downloadPath=outputDirectory)
 			else:
-				downloadMusic([videoURL,])
+				downloadMusic([videoURL])
 		else:
 			videoURL = getVideoURL()
 			downloadMusic([videoURL])
@@ -96,7 +107,7 @@ def main(argv):
 		print (e)
 		pass
 
-	print ("Done!")
+	print ("Loading...")
 
 
 if __name__ == '__main__':

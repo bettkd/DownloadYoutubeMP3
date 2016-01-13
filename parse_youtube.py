@@ -20,8 +20,7 @@ def make_soup(url):
 
 def getURI(url):
 	soup = make_soup(url)
-	#print soup
-
+	
 	videos = soup.find_all("div",
         {"class": lambda x: x and x == "yt-lockup-content"})
 	
