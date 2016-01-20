@@ -15,13 +15,16 @@ $sudo pip install -r requirements.txt
 ## USAGE:
 
 ```bash
-Usage: $python downloadmp3.py -i <playlistFile> -o <outputDirectory>
-Other options:
-	-t <title> --> downloads a specific title
-	-a <artist> --> downloads a specific artist (single title)
-	-h --> help
-Default:
-	$downloadmp3.py -a Jason Mraz -t I'm yours -o ~/Downloads/YoutubeDownload/
+Usage:
+	$python downloadmp3.py -i <playlistFile> -o <outputDirectory>
+	or
+	$python downloadmp3.py -a <artist> -t <title> -o <outputDirectory>
+Options:
+	-i	specify input (path to a playlist file)
+	-o	provide the destination folder other (default: ~/Downloads/YoutubeDownload/)
+	-t	specify the title (default: "Jason Mraz")
+	-a 	specify artist (default: "I'm yours")
+	-h	help
 ```
 
 ### Example tab-delimited text file ```playlist.txt```
