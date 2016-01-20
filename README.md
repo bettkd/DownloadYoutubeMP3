@@ -15,7 +15,7 @@ $sudo pip install -r requirements.txt
 ## USAGE:
 
 ```bash
-Usage: $downloadmp3.py -i <playlistFile> -o <outputDirectory>
+Usage: $python downloadmp3.py -i <playlistFile> -o <outputDirectory>
 Other options:
 	-t <title> --> downloads a specific title
 	-a <artist> --> downloads a specific artist (single title)
