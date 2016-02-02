@@ -8,6 +8,7 @@ from cookielib import CookieJar
 import random
 import re
 
+# Beautiful Soup Initial Func
 def make_soup(url):
 	cj = CookieJar()
 	opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
@@ -18,6 +19,7 @@ def make_soup(url):
 	soup.prettify()
 	return (soup)
 
+# Func to extract info(URIs) from the "Soup"
 def getURI(url):
 	soup = make_soup(url)
 	

@@ -10,6 +10,7 @@ YOUTUBE_URL = "https://youtube.com"
 
 q = Queue.Queue()
 
+# Function to read multiple YouTube URLs
 def getVideoURLs(fname):
 	videoURLs = []
 	playlist = csv.reader(open(fname, 'rU'), dialect=csv.excel_tab)
@@ -22,6 +23,7 @@ def getVideoURLs(fname):
 		videoURLs.append(videoURL)
 	return videoURLs
 
+# Function to fetch the YouTube music URL. Uses the parse_youtube module to extract the information
 def getVideoURL(artist="Jason Mraz", title="I'm yours"):
 	query = "/results?search_query="+artist.strip().replace(" ", "+")+"+-+"+title.strip().replace(" ", "+")
 	print ("\nRetrieving link for %s by %s..."%(title, artist))
@@ -30,6 +32,7 @@ def getVideoURL(artist="Jason Mraz", title="I'm yours"):
 	q.put(videoURL)
 	#return videoURL
 
+# Function to download and proceess music. Takes in the Youtube URL and destination folder as params
 def downloadMusic(videoURLs, downloadPath="~/Downloads/YoutubeDownload/"):
 	if '~' in downloadPath:
 		downloadPath = os.path.expanduser(downloadPath)
