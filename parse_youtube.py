@@ -10,6 +10,10 @@ import re
 
 # Beautiful Soup Initial Func
 def make_soup(url):
+	'''
+	:params - string URL (youtube url query for song)
+	:return - string soup (rendered html)
+	'''
 	cj = CookieJar()
 	opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 	agents = ["Chrome/19.0.1084.52", "Safari/536.5", "Mozilla/5.0", "Chrome/19.0.1084.52"]
@@ -21,6 +25,10 @@ def make_soup(url):
 
 # Func to extract info(URIs) from the "Soup"
 def getURI(url):
+	'''
+	:params - string URL (youtube url query for song)
+	:return - string URI (best videoID for given song)
+	'''
 	soup = make_soup(url)
 	
 	videos = soup.find_all("div",
@@ -30,13 +38,16 @@ def getURI(url):
 	my_video = ""
 	views = 0
 	for video in videos:
-		if "Verified" in str(video) or "itunes" in str(video):
+		if "vevo" in str(video).lower():
 			my_video = video
 			break
 		else:
 			results = re.findall(r"ago</li><li>(.*) views</li>", str(video))
 			if results :
-				_views = int(results[0].replace(",", ""))
+				try:
+					_views = int(results[0].replace(",", ""))
+				except Exception, e:
+					continue
 				if _views > views:
 					views = _views
 					my_video = video

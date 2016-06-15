@@ -27,19 +27,24 @@ Options:
 	-h	help
 ```
 
-### Example tab-delimited text file ```playlist.txt```
-|Artist          | Song                              |
-|:---------------|:----------------------------------|
-|MercyMe         | Greater                           |
-|Newsboys        | We Believe                        |
-|MercyMe         | I Can Only Imagine                |
-|Chris Tomlin    | Amazing Grace (My Chains Are Gone)|
-|Matt Redman     | "10,000 Reasons"                  |
-|Newsboys        | God's Not Dead                    |
-|Chris Tomlin    | How Great Is Our God              |
-|MercyMe         | Word ofGod Speak                  |
-|Casting Crowns  | Who Am I                          |
-|Matthew West    | "Hello, My Name Is"               |
+### Example text file ```playlist.txt```
+|				Song   			                 	|
+|:----------------:--------------------------------:|
+|MercyMe          Greater                           |
+|Newsboys         We Believe                        |
+|MercyMe          I Can Only Imagine                |
+|Chris Tomlin     Amazing Grace (My Chains Are Gone)|
+|Matt Redman      "10,000 Reasons"                  |
+|Newsboys         God's Not Dead                    |
+|Chris Tomlin     How Great Is Our God              |
+|MercyMe          Word ofGod Speak                  |
+|Casting Crowns   Who Am I                          |
+|Matthew West     "Hello, My Name Is"               |
+
+> Test Run 
+```bash
+	python downloadmp3.py -i Playlists/playlist_top100Kenya_2016.txt -o ~/Desktop/KENYAN_MUSIC
+```
 
 ## STORY
 I love listening to contemporary christian music. So I went online to find the top 100 music to download, but all I found was a list. An amazing list of all the songs I wanted on my iPod. Now the challenge what do I do so that I can download not just all the songs in the list, but the best/verified versions of the songs. Popular web apps such as http://www.youtube-mp3.org/ need approximately 3-4 minutes to per video. That is the time I have tp download 100 songs. I know, right? Instinctively, I wrote these scripts to automate the proccess. Now all I need is the list of songs I want, and I got it in MP3 format! Yaay!

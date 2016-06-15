@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+#from __future__ import unicode_literals
 import youtube_dl
 import csv
 from parse_youtube import getURI
@@ -6,17 +6,20 @@ import sys, os, getopt
 import threading
 import Queue
 
-YOUTUBE_URL = "https://youtube.com"
+reload(sys)
+sys.setdefaultencoding('utf8') # Set default encoding to UTF-=8
 
-q = Queue.Queue()
+YOUTUBE_URL = "https://youtube.com" # Youtube root url
+
+q = Queue.Queue() # Thread queue
 
 # Function to read multiple YouTube URLs
 def getVideoURLs(fname):
 	videoURLs = []
-	playlist = csv.reader(open(fname, 'rU'), dialect=csv.excel_tab)
+	playlist = csv.reader(open(fname, 'rU'), delimiter=" ")
 	for row in playlist:
-		artist, title = row
-		t = threading.Thread(target=getVideoURL, args=(artist, title))
+		song = '+'.join(row)
+		t = threading.Thread(target=getVideoURL, args=(song,))
 		t.start()
 		t.join()
 		videoURL = q.get()
@@ -24,9 +27,11 @@ def getVideoURLs(fname):
 	return videoURLs
 
 # Function to fetch the YouTube music URL. Uses the parse_youtube module to extract the information
-def getVideoURL(artist="Jason Mraz", title="I'm yours"):
-	query = "/results?search_query="+artist.strip().replace(" ", "+")+"+-+"+title.strip().replace(" ", "+")
-	print ("\nRetrieving link for %s by %s..."%(title, artist))
+def getVideoURL(song="I'm yours"):
+	"""
+	"""
+	query = "/results?search_query="+song.strip().replace("\"", "").replace("\'", "")[:40]
+	print ("\nRetrieving link for %s "%song)
 	URI = getURI(YOUTUBE_URL + query)
 	videoURL = YOUTUBE_URL + URI
 	q.put(videoURL)
@@ -55,38 +60,33 @@ def downloadMusic(videoURLs, downloadPath="~/Downloads/YoutubeDownload/"):
 def main(argv):
 	playlistFile = ''
 	outputDirectory = ''
-	title = ''
-	artist = ''
+	song = ''
 	try:
-		opts, args = getopt.getopt(argv,"hi:o:a:t:",["playlistFile=","outputDir=", "title=", "artist="])
+		opts, args = getopt.getopt(argv,"hi:o:s:",["playlistFile=","outputDir=", "song="])
 	except getopt.GetoptError:
 		print 'Error: Invalid arguements....\n'\
 					'Usage: downloadmp3.py -i <playlistFile> -o <outputDirectory>\n'\
 					'Other options:\n'\
-					'\t -t <title> --> downloads a specific title\n'\
-					'\t -a <artist> --> downloads a specific artist (single title)\n'\
+					'\t -t <song> --> downloads a specific song\n'\
 					'\t -h --> help.\n'\
 					'Default: '\
-					"downloadmp3.py -a Jason Mraz -t I'm yours -o ~/Downloads/YoutubeDownload/"
+					"downloadmp3.py -s 'Jason Mraz I'm yours' -o ~/Downloads/YoutubeDownload/"
 		sys.exit(2)
 	for opt, arg in opts:
 		if opt == '-h':
 			print 'Usage: downloadmp3.py -i <playlistFile> -o <outputDirectory>\n'\
 					'Other options:\n'\
-					'\t -t <title> --> downloads a specific title\n'\
-					'\t -a <artist> --> downloads a specific artist (single title)\n'\
+					'\t -t <song> --> downloads a specific song\n'\
 					'\t -h --> help.\n'\
 					'Default: '\
-					'downloadmp3.py -a "Jason Mraz" -t "I\'m yours" -o ~/Downloads/YoutubeDownload/'
+					'downloadmp3.py -s "Jason Mraz I\'m yours" -o ~/Downloads/YoutubeDownload/'
 			sys.exit()
 		elif opt in ('-i', '--playlistFile'):
 			playlistFile = arg
 		elif opt in ('-o', '--outputDirectory'):
 			outputDirectory = arg
-		elif opt in ('-t', '--title'):
-			title = arg
-		elif opt in ('-a', '--artist'):
-			artist = arg
+		elif opt in ('-s', '--song'):
+			song = arg
 
 	try:
 		if playlistFile:
@@ -98,7 +98,7 @@ def main(argv):
 			else:
 				downloadMusic(videoURLs)
 		elif title or artist:
-			videoURL = getVideoURL(title=title, artist=artist)
+			videoURL = getVideoURL(song=song)
 			if outputDirectory:
 				downloadMusic([videoURL], downloadPath=outputDirectory)
 			else:
